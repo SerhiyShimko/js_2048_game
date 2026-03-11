@@ -1,5 +1,4 @@
 'use strict';
-
 /**
  * This class represents the game.
  * Now it has a basic structure, that is needed for testing.
@@ -221,7 +220,6 @@ class Game {
           newArray[n + 1] = String(Number(NextElement) * 2);
           newArray.splice(n, 1);
           this.move = true;
-          n++;
         }
       }
 
@@ -402,16 +400,6 @@ class Game {
       }
     });
 
-    if (newArray.includes('2048')) {
-      this.messageStart.classList.add('hidden');
-      this.messageWin.classList.remove('hidden');
-    }
-
-    if (newArray.length === 0) {
-      this.messageStart.classList.add('hidden');
-      this.messageLose.classList.remove('hidden');
-    }
-
     if (this.move === true) {
       let content = 2;
       const random = Math.floor(Math.random() * newArray.length);
@@ -426,6 +414,60 @@ class Game {
         element.textContent = `${content}`;
         element.classList.add(`field-cell--${content}`);
       }
+    }
+  }
+
+  statusGame() {
+    const newArray = this.arrayAllCells.filter((td) => {
+      if (td.textContent === '') {
+        return true;
+      }
+
+      if (td.textContent === '2048') {
+        this.messageStart.classList.add('hidden');
+        this.messageWin.classList.remove('hidden');
+      }
+    });
+
+    if (newArray.length === 0 && youLose() === true) {
+      this.messageStart.classList.add('hidden');
+      this.messageLose.classList.remove('hidden');
+    }
+
+    function youLose() {
+      const table = document.querySelector('.game-field');
+      const allRow = Array.from(table.rows);
+
+      for (const tr of allRow) {
+        const tdArray = tr.cells;
+
+        for (let index = 0; index < tdArray.length - 1; index++) {
+          const element = tdArray[index];
+          const nextElement = tdArray[index + 1];
+
+          if (element.textContent === nextElement.textContent) {
+            return false;
+          }
+        }
+      }
+
+      for (let i = 0; i < 4; i++) {
+        const columnRow = [];
+
+        for (const row of allRow) {
+          columnRow.push(row.cells[i]);
+        }
+
+        if (
+          columnRow[0].textContent === columnRow[1].textContent ||
+          columnRow[1].textContent === columnRow[2].textContent ||
+          columnRow[2].textContent === columnRow[3].textContent
+        ) {
+          return false;
+        }
+      }
+
+      return true;
     }
   }
 }
