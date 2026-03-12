@@ -53,6 +53,14 @@ let endX = 0;
 let startY = 0;
 let endY = 0;
 
+document.addEventListener(
+  'touchmove',
+  (e) => {
+    e.preventDefault();
+  },
+  { passive: false },
+);
+
 document.addEventListener('touchstart', (e) => {
   startX = e.touches[0].clientX;
   startY = e.touches[0].clientY;

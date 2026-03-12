@@ -315,6 +315,8 @@ class Game {
 
     let count = 0;
 
+    this.messageStart.classList.add('hidden');
+
     while (count === 0) {
       const cells = this.arrayAllCells;
       const lengthAllCells = cells.length;
@@ -331,8 +333,18 @@ class Game {
         }
         cells[randomIndexFirst].textContent = `${content}`;
         cells[randomIndexFirst].classList.add(`field-cell--${content}`);
+        cells[randomIndexFirst].classList.add('smoothAppearance');
+
+        setTimeout(() => {
+          cells[randomIndexFirst].classList.remove('smoothAppearance');
+        }, 200);
         cells[randomIndexSecond].textContent = `${content}`;
         cells[randomIndexSecond].classList.add(`field-cell--${content}`);
+        cells[randomIndexSecond].classList.add('smoothAppearance');
+
+        setTimeout(() => {
+          cells[randomIndexSecond].classList.remove('smoothAppearance');
+        }, 200);
         count++;
       }
     }
@@ -349,7 +361,6 @@ class Game {
     if (!this.messageLose.classList.contains('hidden')) {
       this.messageLose.classList.add('hidden');
     }
-    this.messageStart.classList.remove('hidden');
 
     this.arrayAllCells.forEach((td) => {
       if (td.textContent !== '') {
@@ -386,8 +397,18 @@ class Game {
         }
         cells[randomIndexFirst].textContent = `${content}`;
         cells[randomIndexFirst].classList.add(`field-cell--${content}`);
+        cells[randomIndexFirst].classList.add('smoothAppearance');
+
+        setTimeout(() => {
+          cells[randomIndexFirst].classList.remove('smoothAppearance');
+        }, 200);
         cells[randomIndexSecond].textContent = `${content}`;
         cells[randomIndexSecond].classList.add(`field-cell--${content}`);
+        cells[randomIndexSecond].classList.add('smoothAppearance');
+
+        setTimeout(() => {
+          cells[randomIndexSecond].classList.remove('smoothAppearance');
+        }, 200);
         count++;
       }
     }
@@ -400,7 +421,9 @@ class Game {
       }
     });
 
-    if (this.move === true) {
+    const trueOrFalse = this.move;
+
+    if (trueOrFalse === true) {
       let content = 2;
       const random = Math.floor(Math.random() * newArray.length);
       const element = newArray[random];
@@ -413,6 +436,11 @@ class Game {
         }
         element.textContent = `${content}`;
         element.classList.add(`field-cell--${content}`);
+        element.classList.add('smoothAppearance');
+
+        setTimeout(() => {
+          element.classList.remove('smoothAppearance');
+        }, 200);
       }
     }
   }
